@@ -1,5 +1,6 @@
 package sample;
 
+
 import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -7,11 +8,14 @@ import javafx.scene.transform.Transform;
 public class Graph3DSpace extends Group {
     Rotate r;
     Transform t;
+
     Graph3DSpace()
     {
+
         t = new Rotate();
         rotateByX(135);
         rotateByZ(45);
+
     }
 
     void rotateByX(int angle)
