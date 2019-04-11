@@ -3,6 +3,8 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,6 +38,12 @@ public class LeftMenu extends Group {
             String id = "f"+i;
             function[i].setId(id);
             function[i].setVisible(true);
+            function[i].setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    new SelectGraphTypeWindow();
+                }
+            });
             vBox.getChildren().add(function[i]);
         }
         function[0].setVisible(true);
