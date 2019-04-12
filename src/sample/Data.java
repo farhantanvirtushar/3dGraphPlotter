@@ -15,10 +15,9 @@ public class Data{
 
     void addExplicitGraph(String function, Color color)
     {
-        ExplicitFunctionGraph explicitFunction = new ExplicitFunctionGraph();
+        ExplicitFunctionGraph explicitFunction = new ExplicitFunctionGraph(function);
         graph[i] = explicitFunction;
         graph[i].setColor(color);
-        explicitFunction.function = function;
         graph[i].evaluate();
         i++;
     }

@@ -5,16 +5,19 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
+
 public class ExplicitFunctionGraph extends Graph{
 
+    EquationEvaluation equationEvaluation ;
     public String function;
-    ExplicitFunctionGraph()
+    ExplicitFunctionGraph(String function)
     {
+       this.function=function;
+       equationEvaluation = new EquationEvaluation(function);
     }
 
     void evaluate()
     {
-        float points[][] = new float[410][410];
         for(int i=0;i<=totalPoints;i++)
         {
             for(int j=0;j<=totalPoints;j++)
@@ -23,9 +26,12 @@ public class ExplicitFunctionGraph extends Graph{
                 x=(float)(x/20.0);
                 float y=(float) ((j-(totalPoints/2))/2);
                 y=(float)(y/20.0);
-                float z = (float)(0);
-                points[i][j]=z;
+                //float z = (float)(20*(-((x*y)/(pow(x,2) + pow(y,2)))));
+                float z = 20* equationEvaluation.evaluate(x,y);
+                z_values[i][j]=z;
+
             }
+
         }
 
         surface = new TriangleMesh();
@@ -38,19 +44,19 @@ public class ExplicitFunctionGraph extends Graph{
             {
                 float x1= (float) ((i-(totalPoints/2))/2);
                 float y1= (float) ((j-(totalPoints/2))/2);
-                float z1 = points[i][j];
+                float z1 = z_values[i][j];
 
                 float x2= (float) (x1+0.5);
                 float y2= y1;
-                float z2 = points[i+1][j];
+                float z2 = z_values[i+1][j];
 
                 float x3= x1;
                 float y3= (float) (y1+0.5);
-                float z3 = points[i][j+1];
+                float z3 = z_values[i][j+1];
 
                 float x4= (float) (x1+0.5);
                 float y4= (float) (y1+0.5);
-                float z4 = points[i+1][j+1];
+                float z4 = z_values[i+1][j+1];
 
 
                 surface.getPoints().addAll(
@@ -77,5 +83,7 @@ public class ExplicitFunctionGraph extends Graph{
         graphSurface.setMaterial(new PhongMaterial(color));
         Main.data.graph3DSpace.getChildren().addAll(graphSurface);
     }
+
+
 
 }
