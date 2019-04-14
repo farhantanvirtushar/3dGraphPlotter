@@ -1,14 +1,17 @@
 package sample;
 
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 public class Data{
 
+    public Stage mainWindow;
     public Graph3DSpace graph3DSpace;
     public LeftMenu leftMenu;
 
     public ExplicitGraphWindow explicitGraphWindow;
     public ImplicitGraphWindow implicitGraphWindow;
+    public ParametricGraphWindow parametricGraphWindow;
     int index;
     Data()
     {
@@ -28,8 +31,16 @@ public class Data{
        implicitFunctionGraph.setColor(color);
        implicitFunctionGraph.evaluate();
     }
-    void addParametricGraph()
+    void addParametricGraph(String functionX , String functionY , String functionZ , Color color)
     {
-        //graph[i]=new ParametricFunctionGraph();
+        ParametricFunctionGraph parametricFunctionGraph = new ParametricFunctionGraph(functionX,functionY,functionZ);
+        parametricFunctionGraph.setColor(color);
+        parametricFunctionGraph.evaluate();
+    }
+
+    void clear()
+    {
+        graph3DSpace.clear();
+
     }
 }

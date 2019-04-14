@@ -3,11 +3,13 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -26,13 +28,56 @@ public class LeftMenu extends Group {
     Label yLabel;
     Label zLabel;
 
+    MenuBar menuBar;
+    Menu clear;
+    Menu about;
+    Menu exit;
+
     LeftMenu(Graph3DSpace graph3DSpace)
     {
         this.graph3DSpace=graph3DSpace;
         vBox = new VBox();
+        vBox.setSpacing(3);
+        menuBar = new MenuBar();
+        clear = new Menu("Clear");
+        about = new Menu("About");
+        exit = new Menu("Exit");
+
+        MenuItem clearItem = new MenuItem("Clear");
+        clear.getItems().add(clearItem);
+        MenuItem aboutItem = new MenuItem("About");
+        about.getItems().add(aboutItem);
+        MenuItem exitItem = new MenuItem("Exit");
+        exit.getItems().add(exitItem);
+
+        menuBar.getMenus().addAll(clear,about,exit);
+        menuBar.setBackground(new Background(new BackgroundFill(Color.SILVER,null,null)));
+        vBox.getChildren().add(menuBar);
+
+        clearItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.data.clear();
+                clearButtons();
+            }
+        });
+
+        aboutItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                new About();
+            }
+        });
+        exitItem.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Main.data.mainWindow.close();
+            }
+        });
         for(int i=0;i<function.length;i++)
         {
             function[i] = new Button("Add New Graph");
+            function[i].setBackground(new Background(new BackgroundFill(Color.rgb(223,223,223),null,null)));
             function[i].setPrefSize(200,90);
             String id = ""+i;
             function[i].setId(id);
@@ -42,7 +87,7 @@ public class LeftMenu extends Group {
         }
         function[0].setVisible(true);
 
-        rotateBy = new Label("\nRotate By Axis\n");
+        rotateBy = new Label("Rotate By Axis");
         rotateBy.setScaleX(1);
         rotateBy.setScaleY(1);
         rotateBy.setTextFill(Color.BROWN);
@@ -105,6 +150,15 @@ public class LeftMenu extends Group {
         });
         vBox.getChildren().addAll(xLabel,xSlider,yLabel,ySlider,zLabel,zSlider);
         this.getChildren().add(vBox);
+    }
+
+    void clearButtons()
+    {
+        for(int i=0;i<function.length;i++)
+        {
+            function[i].setText("Add New Graph");
+            function[i].setBackground(new Background(new BackgroundFill(Color.rgb(223,223,223),null,null)));
+        }
     }
 
 }

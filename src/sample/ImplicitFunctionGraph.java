@@ -431,7 +431,7 @@ public class ImplicitFunctionGraph extends Graph{
             }
         }catch (Exception e)
         {
-            System.out.println("exception with k = "+k);
+
         }
 
         graphSurface = new MeshView(surface);

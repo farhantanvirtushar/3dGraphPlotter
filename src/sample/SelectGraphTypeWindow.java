@@ -50,6 +50,15 @@ public class SelectGraphTypeWindow{
                 window.setTitle("Implicit Function");
             }
         });
+        parametricFunction.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                ParametricGraphWindow parametricGraphWindow = new ParametricGraphWindow(window);
+                Main.data.parametricGraphWindow = parametricGraphWindow;
+                window.setScene(parametricGraphWindow.scene);
+                window.setTitle("Parametric Function");
+            }
+        });
         options.getChildren().addAll(graphType,explicitFunction,implicitFunction,parametricFunction);
 
         scene = new Scene(options,400,400);

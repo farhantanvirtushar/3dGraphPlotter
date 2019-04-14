@@ -8,6 +8,8 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 
+import static java.lang.Math.abs;
+
 
 public class ExplicitFunctionGraph extends Graph{
 
@@ -32,7 +34,15 @@ public class ExplicitFunctionGraph extends Graph{
                 x=(float)(x/10.0);
                 float y=(float) ((j-(totalPoints/2))/2);
                 y=(float)(y/10.0);
-                float z = 20* equationEvaluation.evaluate(x,y);
+                float z = 10* equationEvaluation.evaluate(x,y);
+                if(z>200)
+                {
+                    z = 200;
+                }
+                if(z<-200)
+                {
+                    z=-200;
+                }
                 z_values[i][j]=z;
             }
 
@@ -78,21 +88,25 @@ public class ExplicitFunctionGraph extends Graph{
                 float z4 = z_values[i+1][j+1];
 
 
-                surface.getPoints().addAll(
-                        x1,    y1,    z1,
-                        x2,    y2,    z2,
-                        x3,    y3,    z3,
-                        x4,    y4,    z4
-                );
+                if(!((abs(abs(z1)-200)<0.001)&&(abs(abs(z2)-200)<0.001)&&(abs(abs(z2)-200)<0.001)&&(abs(abs(z3)-200)<0.001)))
+                {
+                    surface.getPoints().addAll(
+                            x1,    y1,    z1,
+                            x2,    y2,    z2,
+                            x3,    y3,    z3,
+                            x4,    y4,    z4
+                    );
 
-                surface.getFaces().addAll(
-                        k+0,0,  k+1,0,  k+2,0,
-                        k+2,0,  k+1,0,  k+0,0,
-                        k+1,0,  k+2,0,  k+3,0,
-                        k+3,0,  k+2,0,  k+1,0
+                    surface.getFaces().addAll(
+                            k+0,0,  k+1,0,  k+2,0,
+                            k+2,0,  k+1,0,  k+0,0,
+                            k+1,0,  k+2,0,  k+3,0,
+                            k+3,0,  k+2,0,  k+1,0
 
-                );
-                k+=4;
+                    );
+                    k+=4;
+                }
+
 
             }
 

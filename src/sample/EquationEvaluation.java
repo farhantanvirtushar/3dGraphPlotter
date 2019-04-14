@@ -137,6 +137,30 @@ public class EquationEvaluation{
                 terms[i].value=0;
                 terms[i].priority=0;
             }
+            else if((parse[i].equals("u"))||(parse[i].equals("v"))||(parse[i].equals("t")))
+            {
+                terms[i].type=VARIBLE;
+                terms[i].value=0;
+                terms[i].priority=0;
+
+                if(parse[i].equals("u")||parse[i].equals("t"))
+                {
+                    terms[i].str="x";
+                }
+                else if(parse[i].equals("v"))
+                {
+                    terms[i].str="y";
+                }
+            }
+            else if(parse[i].equals("e"))
+            {
+                float value = (float)(Math.exp(1));
+
+                terms[i].str=parse[i];
+                terms[i].value=value;
+                terms[i].type=CONSTANT;
+                terms[i].priority=0;
+            }
             else if((parse[i].equals("("))||(parse[i].equals(")")))
             {
                 terms[i].type=BRACKET;

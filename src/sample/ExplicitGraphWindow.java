@@ -23,6 +23,8 @@ public class ExplicitGraphWindow {
     Button plot;
     ColorPicker colorPicker;
 
+    Label howToWrite;
+
     ExplicitGraphWindow (Stage window)
     {
 
@@ -32,8 +34,11 @@ public class ExplicitGraphWindow {
         gridPane.setAlignment(Pos.CENTER);
         gridPane.setVgap(30);
 
-        scene = new Scene(gridPane,400,400);
+        scene = new Scene(gridPane,450,450);
 
+
+        howToWrite = new Label("use sqrt( ) for '√'. For example : √x ≈ sqrt(x) \n use '^' for power. For example : 'x^2' ");
+        howToWrite.setTextFill(Color.RED);
 
         input = new TextField();
         f = new Label(" z = ");
@@ -44,13 +49,13 @@ public class ExplicitGraphWindow {
         warning = new Label("");
         warning.setVisible(false);
 
-
-        gridPane.add(f,0,0);
-        gridPane.add(input,1,0);
-        gridPane.add(warning,1,1);
-        gridPane.add(setColor,1,2);
-        gridPane.add(colorPicker,1,3);
-        gridPane.add(plot,1,4);
+        gridPane.add(howToWrite,1,0);
+        gridPane.add(f,0,1);
+        gridPane.add(input,1,1);
+        gridPane.add(warning,1,2);
+        gridPane.add(setColor,1,3);
+        gridPane.add(colorPicker,1,4);
+        gridPane.add(plot,1,5);
 
         plot.setOnAction(new EventHandler<ActionEvent>() {
             @Override

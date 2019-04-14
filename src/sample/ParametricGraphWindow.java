@@ -10,24 +10,31 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
-public class ImplicitGraphWindow{
+public class ParametricGraphWindow {
+
     Stage window;
     Scene scene;
     GridPane gridPane;
-    TextField input;
+    TextField inputX;
+    TextField inputY;
+    TextField inputZ;
+    Label instruction;
     Label warning;
-    Label f;
-    Label zero;
+    Label x;
+    Label y;
+    Label z;
     Label setColor;
     Button plot;
     ColorPicker colorPicker;
 
     Label howToWrite;
-    ImplicitGraphWindow(Stage window)
+
+    ParametricGraphWindow(Stage window)
     {
+
+
         this.window = window;
 
         gridPane = new GridPane();
@@ -40,9 +47,15 @@ public class ImplicitGraphWindow{
         howToWrite = new Label("use sqrt( ) for '√'. For example : √x ≈ sqrt(x) \n use '^' for power. For example : 'x^2' ");
         howToWrite.setTextFill(Color.RED);
 
-        input = new TextField();
-        f = new Label(" f(x,y,z) = ");
-        zero = new Label(" = 0");
+        instruction = new Label("Use u , v as parameter");
+
+        inputX = new TextField();
+        inputY = new TextField();
+        inputZ = new TextField();
+
+        x = new Label(" x(u,v) = ");
+        y = new Label(" y(u,v) = ");
+        z = new Label(" z(u,v) = ");
         setColor = new Label("Select Color");
         colorPicker = new ColorPicker();
         colorPicker.setValue(Color.GRAY);
@@ -52,21 +65,28 @@ public class ImplicitGraphWindow{
 
 
         gridPane.add(howToWrite,1,0);
-        gridPane.add(f,0,1);
-        gridPane.add(input,1,1);
-        gridPane.add(zero,2,1);
-        gridPane.add(warning,1,2);
-        gridPane.add(setColor,1,3);
-        gridPane.add(colorPicker,1,4);
-        gridPane.add(plot,1,5);
+        gridPane.add(instruction,1,1);
+        gridPane.add(x,0,2);
+        gridPane.add(inputX,1,2);
+        gridPane.add(y,0,3);
+        gridPane.add(inputY,1,3);
+        gridPane.add(z,0,4);
+        gridPane.add(inputZ,1,4);
+        gridPane.add(warning,1,5);
+        gridPane.add(setColor,1,6);
+        gridPane.add(colorPicker,1,6);
+        gridPane.add(plot,1,8);
 
         plot.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                String function = input.getText();
+                String functionX = inputX.getText();
+                String functionY = inputY.getText();
+                String functionZ = inputZ.getText();
                 Color color = colorPicker.getValue();
-                Main.data.addImplicitGraph(function,color);
+                Main.data.addParametricGraph(functionX,functionY,functionZ,color);
             }
         });
+
     }
 }

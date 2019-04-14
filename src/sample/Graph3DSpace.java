@@ -58,4 +58,14 @@ public class Graph3DSpace extends Group {
         this.getTransforms().clear();
         this.getTransforms().add(t);
     }
+    void clear()
+    {
+        for(int i=0;i<5;i++)
+        {
+            if(isDrawn[i])
+            {
+                this.getChildren().removeAll(meshView[i]);
+            }
+        }
+    }
 }
