@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
@@ -10,9 +13,12 @@ public class ExplicitFunctionGraph extends Graph{
 
     EquationEvaluation equationEvaluation ;
     public String function;
+    public float z_values[][];
+
     ExplicitFunctionGraph(String function)
     {
        this.function=function;
+       z_values = new float[(int)totalPoints+10][(int)totalPoints+10];
        equationEvaluation = new EquationEvaluation(function);
     }
 
@@ -23,17 +29,30 @@ public class ExplicitFunctionGraph extends Graph{
             for(int j=0;j<=totalPoints;j++)
             {
                 float x= (float) ((i-(totalPoints/2))/2);
-                x=(float)(x/20.0);
+                x=(float)(x/10.0);
                 float y=(float) ((j-(totalPoints/2))/2);
-                y=(float)(y/20.0);
-                //float z = (float)(20*(-((x*y)/(pow(x,2) + pow(y,2)))));
+                y=(float)(y/10.0);
                 float z = 20* equationEvaluation.evaluate(x,y);
                 z_values[i][j]=z;
-
             }
 
         }
+        if(equationEvaluation.invalid||equationEvaluation.parathensisMismatch)
+        {
+            Main.data.explicitGraphWindow.warning.setText("Invalid Expression Or Parentheses Imbalanced");
+            Main.data.explicitGraphWindow.warning.setVisible(true);
+            Main.data.explicitGraphWindow.warning.setTextFill(Color.RED);
+            return;
+        }
 
+        plot();
+        Main.data.explicitGraphWindow.window.close();
+        Main.data.leftMenu.function[Main.data.index].setBackground(new Background(new BackgroundFill(color,null,null)));
+        Main.data.leftMenu.function[Main.data.index].setText(function);
+
+    }
+    void plot()
+    {
         surface = new TriangleMesh();
         surface.getTexCoords().addAll(0,0);
 
@@ -79,9 +98,10 @@ public class ExplicitFunctionGraph extends Graph{
 
         }
         graphSurface = new MeshView(surface);
+        graphSurface.setId(""+Main.data.index);
         graphSurface.setDrawMode(DrawMode.FILL);
         graphSurface.setMaterial(new PhongMaterial(color));
-        Main.data.graph3DSpace.getChildren().addAll(graphSurface);
+        Main.data.graph3DSpace.add(graphSurface,Main.data.index);
     }
 
 

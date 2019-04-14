@@ -1,6 +1,6 @@
 package sample;
 
-public class EquationEvaluation {
+public class EquationEvaluation{
 
     String equation;
     String parse[];
@@ -28,6 +28,15 @@ public class EquationEvaluation {
         postFixTerms = 0;
         parseEquation();
         convertToPostFix();
+        for (int i=0;i<numOfTerms;i++)
+        {
+            //System.out.println(parse[i]);
+        }
+        //System.out.println("now post fix");
+        for (int i=0;i<postFixTerms;i++)
+        {
+            //System.out.println(postFix[i]);
+        }
     }
 
     void parseEquation()
@@ -86,12 +95,14 @@ public class EquationEvaluation {
             }
             else if (i==byteLength-1)
             {
-                parse[k]=new String(b,i,i-j+1);
+                parse[k]=new String(b,j,i-j+1);
                 k++;
                 j=i+1;
             }
         }
+
         numOfTerms = k;
+
         terms = new Term[numOfTerms];
         for(int i=0;i<numOfTerms;i++)
         {
@@ -136,6 +147,7 @@ public class EquationEvaluation {
             else {
                 try {
                     float value = Float.valueOf(parse[i]);
+                    terms[i].str=parse[i];
                     terms[i].value=value;
                     terms[i].type=CONSTANT;
                     terms[i].priority=0;
@@ -148,12 +160,28 @@ public class EquationEvaluation {
                 }
             }
         }
+        for(int i=0;i<numOfTerms;i++)
+        {
+            if(terms[i].str.equals("-"))
+            {
+                if((i==0))
+                {
+                    terms[i].type=UNARY;
+                    terms[i].priority=5;
+                }
+                else if((terms[i-1].type!=VARIBLE)&&(terms[i-1].type!=CONSTANT))
+                {
+                    terms[i].type=UNARY;
+                    terms[i].priority=5;
+                }
+            }
+        }
     }
     void convertToPostFix()
     {
         if(parathensisMismatch)
         {
-            System.out.println("parenthesis mismatch");
+            //System.out.println("parenthesis mismatch");
             return;
         }
         postFix = new Term[numOfTerms];
@@ -318,6 +346,10 @@ public class EquationEvaluation {
     {
         float result = 0;
 
+        if(operator.equals("-"))
+        {
+            result =(float)((-1)*v);
+        }
         if(operator.equals("sin"))
         {
             result = (float)( Math.sin(v));
@@ -508,3 +540,4 @@ public class EquationEvaluation {
     }
 
 }
+

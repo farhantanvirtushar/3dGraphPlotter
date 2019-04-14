@@ -20,6 +20,7 @@ public class SelectGraphTypeWindow{
     Scene scene;
     SelectGraphTypeWindow()
     {
+
         VBox options = new VBox();
         options.setAlignment(Pos.CENTER);
         options.setSpacing(20);
@@ -34,8 +35,19 @@ public class SelectGraphTypeWindow{
         explicitFunction.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                window.setScene((new ExplicitGraphWindow()).scene);
+                ExplicitGraphWindow explicitGraphWindow = new ExplicitGraphWindow(window);
+                Main.data.explicitGraphWindow = explicitGraphWindow;
+                window.setScene(explicitGraphWindow.scene);
                 window.setTitle("Explicit Function");
+            }
+        });
+        implicitFunction.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                ImplicitGraphWindow implicitGraphWindow = new ImplicitGraphWindow(window);
+                Main.data.implicitGraphWindow = implicitGraphWindow;
+                window.setScene(implicitGraphWindow.scene);
+                window.setTitle("Implicit Function");
             }
         });
         options.getChildren().addAll(graphType,explicitFunction,implicitFunction,parametricFunction);

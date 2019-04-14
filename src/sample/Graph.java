@@ -9,15 +9,13 @@ public class Graph {
     public TriangleMesh surface;
 
     MeshView graphSurface;
-    public float z_values[][];
     Color color;
     public double totalPoints;
-
+    int index;
     Graph()
     {
         totalPoints = (int)(Home.AXIS_LEN*2);
-        z_values = new float[(int)totalPoints+10][(int)totalPoints+10];
-
+        index = 0;
         surface = new TriangleMesh();
         surface.getTexCoords().addAll(0,0);
 

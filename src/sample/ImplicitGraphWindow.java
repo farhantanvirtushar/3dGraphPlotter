@@ -12,20 +12,19 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class ExplicitGraphWindow {
+public class ImplicitGraphWindow{
     Stage window;
     Scene scene;
     GridPane gridPane;
     TextField input;
     Label warning;
     Label f;
+    Label zero;
     Label setColor;
     Button plot;
     ColorPicker colorPicker;
-
-    ExplicitGraphWindow (Stage window)
+    ImplicitGraphWindow(Stage window)
     {
-
         this.window = window;
 
         gridPane = new GridPane();
@@ -36,7 +35,8 @@ public class ExplicitGraphWindow {
 
 
         input = new TextField();
-        f = new Label(" z = ");
+        f = new Label(" f(x,y,z) = ");
+        zero = new Label(" = 0");
         setColor = new Label("Select Color");
         colorPicker = new ColorPicker();
         colorPicker.setValue(Color.GRAY);
@@ -47,6 +47,7 @@ public class ExplicitGraphWindow {
 
         gridPane.add(f,0,0);
         gridPane.add(input,1,0);
+        gridPane.add(zero,2,0);
         gridPane.add(warning,1,1);
         gridPane.add(setColor,1,2);
         gridPane.add(colorPicker,1,3);
@@ -57,10 +58,8 @@ public class ExplicitGraphWindow {
             public void handle(ActionEvent actionEvent) {
                 String function = input.getText();
                 Color color = colorPicker.getValue();
-                Main.data.addExplicitGraph(function,color);
+                Main.data.addImplicitGraph(function,color);
             }
         });
-
     }
-
 }

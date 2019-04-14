@@ -4,27 +4,29 @@ import javafx.scene.paint.Color;
 
 public class Data{
 
-    public Graph graph[];
     public Graph3DSpace graph3DSpace;
-    int i;
+    public LeftMenu leftMenu;
+
+    public ExplicitGraphWindow explicitGraphWindow;
+    public ImplicitGraphWindow implicitGraphWindow;
+    int index;
     Data()
     {
-        graph = new Graph[5];
-        i=0;
+        index=0;
     }
 
     void addExplicitGraph(String function, Color color)
     {
         ExplicitFunctionGraph explicitFunction = new ExplicitFunctionGraph(function);
-        graph[i] = explicitFunction;
-        graph[i].setColor(color);
-        graph[i].evaluate();
-        i++;
+        explicitFunction.setColor(color);
+        explicitFunction.evaluate();
     }
 
-    void addImplicitGraph()
+    void addImplicitGraph(String function , Color color)
     {
-        //graph[i]=new ImplicitFunctionGraph();
+       ImplicitFunctionGraph implicitFunctionGraph = new ImplicitFunctionGraph(function);
+       implicitFunctionGraph.setColor(color);
+       implicitFunctionGraph.evaluate();
     }
     void addParametricGraph()
     {

@@ -3,12 +3,11 @@ package sample;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -35,15 +34,10 @@ public class LeftMenu extends Group {
         {
             function[i] = new Button("Add New Graph");
             function[i].setPrefSize(200,90);
-            String id = "f"+i;
+            String id = ""+i;
             function[i].setId(id);
             function[i].setVisible(true);
-            function[i].setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    new SelectGraphTypeWindow();
-                }
-            });
+            function[i].addEventHandler(MouseEvent.MOUSE_CLICKED,new AddFunctionHandler(i));
             vBox.getChildren().add(function[i]);
         }
         function[0].setVisible(true);
