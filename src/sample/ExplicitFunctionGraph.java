@@ -115,7 +115,7 @@ public class ExplicitFunctionGraph extends Graph{
         graphSurface.setId(""+Main.data.index);
         graphSurface.setDrawMode(DrawMode.FILL);
         graphSurface.setMaterial(new PhongMaterial(color));
-        Main.data.graph3DSpace.add(graphSurface,Main.data.index);
+        Main.data.graph3DSpace.add(graphSurface,Main.data.index,0);
     }
 
 

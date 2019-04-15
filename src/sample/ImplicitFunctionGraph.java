@@ -168,96 +168,103 @@ public class ImplicitFunctionGraph extends Graph{
         surface.getTexCoords().addAll(0,0);
 
         int k = 0;
-        try
-        {
+        try {
 
-            for(int i=0;i<points;i++)
-            {
-                for (int j=0;j<points;j++)
-                {
-                    int k1=0,k2=0,k3=0,k4=0;
-                    while (true)
-                    {
+            for (int i = 0; i < points; i++) {
+                for (int j = 0; j < points; j++) {
+                    int k1 = 0, k2 = 0, k3 = 0, k4 = 0;
+                    while (true) {
 
-                        for(;k1<points;k1++)
-                        {
-                            if(map1[i][j][k1]==1)
-                            {
-                                k1+=1;
+                        for (; k1 < points; k1++) {
+                            if (map1[i][j][k1] == 1) {
+                                k1 += 1;
                                 break;
                             }
                         }
 
-                        for(;k2<points;k2++)
-                        {
-                            if(map1[i+1][j][k2]==1)
-                            {
-                                k2+=1;
+                        for (; k2 < points; k2++) {
+                            if (map1[i + 1][j][k2] == 1) {
+                                k2 += 1;
                                 break;
                             }
                         }
 
-                        for(;k3<points;k3++)
-                        {
-                            if(map1[i][j+1][k3]==1)
-                            {
-                                k3+=1;
+                        for (; k3 < points; k3++) {
+                            if (map1[i][j + 1][k3] == 1) {
+                                k3 += 1;
                                 break;
                             }
                         }
-                        for(;k4<points;k4++)
-                        {
-                            if(map1[i+1][j+1][k4]==1)
-                            {
-                                k4+=1;
+                        for (; k4 < points; k4++) {
+                            if (map1[i + 1][j + 1][k4] == 1) {
+                                k4 += 1;
                                 break;
                             }
                         }
 
-                        if((!(k1<points)) || (!(k2<points))||(!(k3<points))||(!(k4<points)))
-                        {
+                        if ((!(k1 < points)) || (!(k2 < points)) || (!(k3 < points)) || (!(k4 < points))) {
                             break;
                         }
-                        float x1 = i-(points/2);
-                        float y1 = j-(points/2);
-                        float z1 = k1-(points/2);
+                        float x1 = i - (points / 2);
+                        float y1 = j - (points / 2);
+                        float z1 = k1 - (points / 2);
 
-                        float x2 = x1+1;
+                        float x2 = x1 + 1;
                         float y2 = y1;
-                        float z2 = k2-(points/2);
+                        float z2 = k2 - (points / 2);
 
                         float x3 = x1;
-                        float y3 = y1 +1;
-                        float z3 = k3-(points/2);
+                        float y3 = y1 + 1;
+                        float z3 = k3 - (points / 2);
 
-                        float x4 = x1+1;
-                        float y4 = y1+1;
-                        float z4 = k4-(points/2);
+                        float x4 = x1 + 1;
+                        float y4 = y1 + 1;
+                        float z4 = k4 - (points / 2);
 
                         surface.getPoints().addAll(
-                                x1,    y1,    z1,
-                                x2,    y2,    z2,
-                                x3,    y3,    z3,
-                                x4,    y4,    z4
+                                x1, y1, z1,
+                                x2, y2, z2,
+                                x3, y3, z3,
+                                x4, y4, z4
                         );
 
                         surface.getFaces().addAll(
-                                k+0,0,  k+1,0,  k+2,0,
-                                k+2,0,  k+1,0,  k+0,0,
-                                k+1,0,  k+2,0,  k+3,0,
-                                k+3,0,  k+2,0,  k+1,0
+                                k + 0, 0, k + 1, 0, k + 2, 0,
+                                k + 2, 0, k + 1, 0, k + 0, 0,
+                                k + 1, 0, k + 2, 0, k + 3, 0,
+                                k + 3, 0, k + 2, 0, k + 1, 0
 
                         );
-                        k+=4;
-                        if(k>=1000000)
+                        k += 4;
+                        if(k>1000000)
                         {
                             throw new Exception();
                         }
 
+
                     }
                 }
             }
+        }catch (OutOfMemoryError error)
+        {
 
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        graphSurface = new MeshView(surface);
+        graphSurface.setDrawMode(DrawMode.FILL);
+        graphSurface.setMaterial(new PhongMaterial(color));
+        Main.data.graph3DSpace.add(graphSurface,Main.data.index,0);
+
+
+        surface = new TriangleMesh();
+        surface.getTexCoords().addAll(0,0);
+
+        k=0;
+        try{
             for(int i=0;i<points;i++)
             {
                 for (int j=0;j<points;j++)
@@ -336,14 +343,34 @@ public class ImplicitFunctionGraph extends Graph{
 
                         );
                         k+=4;
-                        if(k>=1000000)
+                        if(k>1000000)
                         {
                             throw new Exception();
                         }
+
                     }
                 }
             }
+        }catch (OutOfMemoryError error)
+        {
 
+        }
+        catch (Exception e)
+        {
+
+        }
+
+        graphSurface = new MeshView(surface);
+        graphSurface.setDrawMode(DrawMode.FILL);
+        graphSurface.setMaterial(new PhongMaterial(color));
+        Main.data.graph3DSpace.add(graphSurface,Main.data.index,1);
+
+        surface = new TriangleMesh();
+        surface.getTexCoords().addAll(0,0);
+
+        k=0;
+
+        try {
             for(int i=0;i<points;i++)
             {
                 for (int j=0;j<points;j++)
@@ -422,23 +449,27 @@ public class ImplicitFunctionGraph extends Graph{
 
                         );
                         k+=4;
-                        if(k>=1000000)
+                        if(k>1000000)
                         {
                             throw new Exception();
                         }
+
                     }
                 }
             }
-        }catch (Exception e)
+        }catch (OutOfMemoryError error)
+        {
+
+        }
+        catch (Exception e)
         {
 
         }
 
         graphSurface = new MeshView(surface);
-        graphSurface.setId(""+Main.data.index);
         graphSurface.setDrawMode(DrawMode.FILL);
         graphSurface.setMaterial(new PhongMaterial(color));
-        Main.data.graph3DSpace.add(graphSurface,Main.data.index);
+        Main.data.graph3DSpace.add(graphSurface,Main.data.index,2);
     }
 
 

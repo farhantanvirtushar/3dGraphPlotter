@@ -9,30 +9,44 @@ import javafx.scene.transform.Transform;
 public class Graph3DSpace extends Group {
     Rotate r;
     Transform t;
-    MeshView meshView[];
-    boolean isDrawn[];
+    MeshView meshView[][];
+    boolean isDrawn[][];
     Graph3DSpace()
     {
 
-        meshView=new MeshView[5];
-        isDrawn = new boolean[5];
+        meshView=new MeshView[5][3];
+        isDrawn = new boolean[5][3];
         for(int i=0;i<5;i++)
         {
-            isDrawn[i]=false;
+            for(int j=0;j<3;j++)
+            {
+                isDrawn[i][j]=false;
+            }
+
         }
         t = new Rotate();
         rotateByX(120);
         rotateByZ(40);
 
     }
-    void add(MeshView mView , int i)
+    void add(MeshView mView , int i,int j)
     {
-        if(isDrawn[i])
+        if(j==0)
         {
-            this.getChildren().removeAll(meshView[i]);
+            for(int a=0;a<3;a++)
+            {
+                if(isDrawn[i][a])
+                {
+                    this.getChildren().removeAll(meshView[i][a]);
+                }
+            }
         }
-        meshView[i]=mView;
-        isDrawn[i]=true;
+        else if(isDrawn[i][j])
+        {
+            this.getChildren().removeAll(meshView[i][j]);
+        }
+        meshView[i][j]=mView;
+        isDrawn[i][j]=true;
         this.getChildren().add(mView);
     }
     void rotateByX(int angle)
@@ -62,10 +76,14 @@ public class Graph3DSpace extends Group {
     {
         for(int i=0;i<5;i++)
         {
-            if(isDrawn[i])
+            for(int j=0;j<3;j++)
             {
-                this.getChildren().removeAll(meshView[i]);
+                if(isDrawn[i][j])
+                {
+                    this.getChildren().removeAll(meshView[i][j]);
+                }
             }
+
         }
     }
 }
