@@ -61,7 +61,7 @@ public class Main extends Application {
         });
         window.setTitle("3D Graph Plotter");
         window.setScene(scene);
-        window.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+//        window.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
         window.show();
     }
 
